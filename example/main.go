@@ -7,7 +7,8 @@ import (
 )
 
 func main() {
-	text := tow.New("   text    ")
+	text := tow.New("   test").FromCharCode(66).String()
+	
 
 	fmt.Println(text)
 }
