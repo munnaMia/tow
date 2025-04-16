@@ -11,7 +11,7 @@ func New(s string) *Str {
 	}
 }
 
-// Converted raw strinig
+// Converted raw string
 func (s *Str) String() string {
 	return s.value
 }
@@ -22,4 +22,14 @@ func (s *Str) FromCharCode(charCode ...int) *Str {
 		s.value += string(rune(char))
 	}
 	return s
-} 
+}
+
+// Take an Index and return a single string character
+
+func (s *Str) At(index int) *Str {
+	if index < 0 {
+		index = len(s.value) + index // Will return negative index value like JS
+	}
+	s.value = string(s.value[index])
+	return s
+}
