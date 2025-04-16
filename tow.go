@@ -18,6 +18,7 @@ func (s *Str) String() string {
 
 // return a string from a sequence of Unicode values (character codes).
 func (s *Str) FromCharCode(charCode ...int) *Str {
+	s.value = ""
 	for _, char := range charCode {
 		s.value += string(rune(char))
 	}
@@ -25,11 +26,15 @@ func (s *Str) FromCharCode(charCode ...int) *Str {
 }
 
 // Take an Index and return a single string character
-
-func (s *Str) At(index int) *Str {
+func (s *Str) CharAt(index int) *Str {
 	if index < 0 {
-		index = len(s.value) + index // Will return negative index value like JS
+		index = len(s.value) + index // Allows negative indexing (like Python)
 	}
 	s.value = string(s.value[index])
 	return s
 }
+
+// // return Unicode value of a charater
+// func (s *Str) CharCodeAt(index int) int {
+
+// }
