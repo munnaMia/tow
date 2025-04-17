@@ -93,9 +93,9 @@ func TestConcat(t *testing.T) {
 		texts    []string
 		expected string
 	}{
-		{"Simple Word", []string{" ", "world"}, "hello world"},
+		{"Simple word", []string{" ", "world"}, "hello world"},
 		{"Simple texts", []string{" to the ", "world"}, "hello to the world"},
-		{"Special Char", []string{"☃★♲"}, "hello☃★♲"},
+		{"Special char", []string{"☃★♲"}, "hello☃★♲"},
 	}
 
 	for _, tt := range tests {
@@ -108,4 +108,28 @@ func TestConcat(t *testing.T) {
 
 		})
 	}
+}
+
+func TestIncludes(t *testing.T){
+	testString := "The quick brown fox jumps over the lazy dog." // String to test on it
+	tests := []struct {
+		name     string
+		text    string
+		expected bool
+	}{
+		{"Simple word", "fox", true},
+		{"Invalid word", "cow", false},
+		{"Empty word", "", true},
+	}
+
+	for _, tt := range tests{
+		t.Run(tt.name,func(t *testing.T) {
+			s := tow.New(testString)
+			result := s.Includes(tt.text)
+			if result != tt.expected {
+				t.Errorf("Includes(%v) = %t; want %t", tt.text, result, tt.expected)
+			}
+		})
+	}
+
 }

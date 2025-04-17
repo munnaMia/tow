@@ -61,3 +61,22 @@ func (s *Str) Concat(strs ...string) *Str {
 
 	return s
 }
+
+// Check if the given Sub-string exist or not on the string
+func (s *Str) Includes(str string) bool {
+	strLength := len(str)
+
+	// If length is 0 return true
+	if strLength == 0 {
+		return true 
+	}
+
+	// Checking the string exist of not
+	for i := 0; i+strLength < len(s.value); i++ {
+		if s.value[i:i+strLength] == str {
+			return true
+		}
+	}
+
+	return false // return false if match not found
+}
