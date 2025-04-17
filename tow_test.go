@@ -133,3 +133,28 @@ func TestIncludes(t *testing.T){
 	}
 
 }
+
+
+func TestIndexOf(t *testing.T){
+	testString := "The quick brown fox jumps over the lazy dog." // String to test on it
+	tests := []struct {
+		name     string
+		text    string
+		expected int
+	}{
+		{"Simple word", "fox", 16},
+		{"Invalid word", "cow", -1},
+		{"Empty word", "", -1},
+	}
+
+	for _, tt := range tests{
+		t.Run(tt.name,func(t *testing.T) {
+			s := tow.New(testString)
+			result := s.IndexOf(tt.text)
+			if result != tt.expected {
+				t.Errorf("Includes(%v) = %q; want %q", tt.text, result, tt.expected)
+			}
+		})
+	}
+
+}

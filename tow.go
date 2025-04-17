@@ -62,13 +62,13 @@ func (s *Str) Concat(strs ...string) *Str {
 	return s
 }
 
-// Check if the given Sub-string exist or not on the string
+// Check if the given Sub-string exist or not on the string and return boolean
 func (s *Str) Includes(str string) bool {
 	strLength := len(str)
 
 	// If length is 0 return true
 	if strLength == 0 {
-		return true 
+		return true
 	}
 
 	// Checking the string exist of not
@@ -80,3 +80,22 @@ func (s *Str) Includes(str string) bool {
 
 	return false // return false if match not found
 }
+
+// This method searches on string and returns the index of the first occurrence of the specified substring.
+func (s *Str) IndexOf(str string) int {
+	strLength := len(str)
+
+	// If substring length is 0 return -1
+	if strLength == 0 {
+		return -1
+	}
+
+	// Search for the string
+	for i:= 0; i+strLength<len(s.value) ; i++ {
+		if str == s.value[i:i+strLength] {
+			return i
+		}
+	}
+
+	return -1
+} 
