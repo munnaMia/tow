@@ -47,8 +47,17 @@ func (s *Str) CharAt(index int) *Str {
 // return Unicode value of a charater
 func (s *Str) CharCodeAt(index int) int {
 	runes := []rune(s.value)
-	if index >= len(s.value) || index < 0 {
+	if index >= len(runes) || index < 0 {
 		return -1
 	}
 	return int(runes[index])
+}
+
+// Concat multiple strings
+func (s *Str) Concat(strs ...string) *Str {
+	for _, str := range strs {
+		s.value += string(str)
+	}
+
+	return s
 }

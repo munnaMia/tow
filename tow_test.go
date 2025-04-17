@@ -60,27 +60,50 @@ func TestCharAt(t *testing.T) {
 
 }
 
-func TestCharCodeAt(t *testing.T){
-	testString := "Let's have a home" // String to test on it
+func TestCharCodeAt(t *testing.T) {
+	testString := "Let's have a ☃★♲" // String to test on it
 	tests := []struct {
 		name     string
 		idx      int
 		expected int
-	}{ 
+	}{
 		{"Positive idx", 4, 115},
 		{"Negative idx", -3, -1},
 		{"Out of range", 100, -1},
 		{"Positive length", len(testString), -1},
+		{"Charater Test", len([]rune(testString)) - 1, 9842},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			s := tow.New(testString)
-
 			result := s.CharCodeAt(tt.idx)
-
 			if result != tt.expected {
 				t.Errorf("CharCodeAt(%v) = %q; want %q", tt.idx, result, tt.expected)
+			}
+
+		})
+	}
+}
+
+func TestConcat(t *testing.T) {
+	testString := "hello" // String to test on it
+	tests := []struct {
+		name     string
+		texts    []string
+		expected string
+	}{
+		{"Simple Word", []string{" ", "world"}, "hello world"},
+		{"Simple texts", []string{" to the ", "world"}, "hello to the world"},
+		{"Special Char", []string{"☃★♲"}, "hello☃★♲"},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			s := tow.New(testString)
+			result := s.Concat(tt.texts...).String()
+			if result != tt.expected {
+				t.Errorf("CharCodeAt(%v) = %q; want %q", tt.texts, result, tt.expected)
 			}
 
 		})
