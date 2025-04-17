@@ -81,6 +81,16 @@ func (s *Str) Includes(str string) bool {
 	return false // return false if match not found
 }
 
+// Checks if string ends with given substring
+func (s *Str) EndsWith(str string) bool {
+	sLength := len(s.value) // given main string length
+	strLength := len(str)   // Substring length
+	if strLength == 0 {
+		return false
+	}
+	return s.value[sLength-strLength:sLength] == str // checking the last string
+}
+
 // This method searches on string and returns the index of the first occurrence of the specified substring.
 func (s *Str) IndexOf(str string) int {
 	strLength := len(str)
@@ -91,11 +101,11 @@ func (s *Str) IndexOf(str string) int {
 	}
 
 	// Search for the string
-	for i:= 0; i+strLength<len(s.value) ; i++ {
+	for i := 0; i+strLength < len(s.value); i++ {
 		if str == s.value[i:i+strLength] {
 			return i
 		}
 	}
 
 	return -1
-} 
+}
