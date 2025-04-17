@@ -44,7 +44,11 @@ func (s *Str) CharAt(index int) *Str {
 	return s
 }
 
-// // return Unicode value of a charater
-// func (s *Str) CharCodeAt(index int) int {
-
-// }
+// return Unicode value of a charater
+func (s *Str) CharCodeAt(index int) int {
+	runes := []rune(s.value)
+	if index >= len(s.value) || index < 0 {
+		return -1
+	}
+	return int(runes[index])
+}
