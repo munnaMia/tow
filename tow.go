@@ -27,9 +27,19 @@ func (s *Str) FromCharCode(charCode ...int) *Str {
 
 // Take an Index and return a single string character
 func (s *Str) CharAt(index int) *Str {
+	length := len(s.value)
+
+	// Work on negative indexing
 	if index < 0 {
-		index = len(s.value) + index // Allows negative indexing (like Python)
+		index = length + index // Allows negative indexing (like Python)
 	}
+
+	// If index is out of range retrun "" empty string
+	if length <= index || index < 0 {
+		s.value = ""
+		return s
+	}
+
 	s.value = string(s.value[index])
 	return s
 }
