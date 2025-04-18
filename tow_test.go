@@ -202,5 +202,53 @@ func TestTrim(t *testing.T){
 			}
 		})
 	}
+}
+
+
+func TestTrimStart(t *testing.T){
+	tests := []struct {
+		name     string
+		text     string
+		expected string
+	}{
+		{"Space both side", "   Hello   ", "Hello   "},
+		{"Space at the start", "   cow", "cow"},
+		{"Space at the end", "tryout   ", "tryout   "},
+		{"More space at the end", "test     ", "test     "},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			s := tow.New(tt.text)
+			result := s.TrimStart().String()
+			if result != tt.expected {
+				t.Errorf("TrimStart() = %s; want %s", result, tt.expected)
+			}
+		})
+	}
+
+}
+
+func TestTrimEnd(t *testing.T){
+	tests := []struct {
+		name     string
+		text     string
+		expected string
+	}{
+		{"Space both side", "   Hello   ", "   Hello"},
+		{"Space at the start", "   cow", "   cow"},
+		{"Space at the end", "try   ", "try"},
+		{"More space at the end", "test     ", "test"},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			s := tow.New(tt.text)
+			result := s.TrimEnd().String()
+			if result != tt.expected {
+				t.Errorf("TrimEnd() = %s; want %s", result, tt.expected)
+			}
+		})
+	}
 
 }

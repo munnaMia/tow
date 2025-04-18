@@ -133,6 +133,38 @@ func (s *Str) Trim() *Str {
 		endIdx--
 	}
 
-	s.value = s.value[startIdx:endIdx+1]
+	s.value = s.value[startIdx : endIdx+1]
+	return s
+}
+
+// This method take a string and removes whitespace from ends of the string
+func (s *Str) TrimEnd() *Str {
+	startIdx := 0
+	endIdx := len(s.value) - 1
+	// end spaces
+	for startIdx <= endIdx {
+		if !unicode.IsSpace(rune(s.value[endIdx])) {
+			break
+		}
+		endIdx--
+	}
+
+	s.value = s.value[startIdx : endIdx+1]
+	return s
+}
+
+// This method take a string and removes whitespace from ends of the string
+func (s *Str) TrimStart() *Str {
+	startIdx := 0
+	endIdx := len(s.value) - 1
+	// start spaces
+	for startIdx <= endIdx {
+		if !unicode.IsSpace(rune(s.value[startIdx])) {
+			break
+		}
+		startIdx++
+	}
+
+	s.value = s.value[startIdx : endIdx+1]
 	return s
 }
