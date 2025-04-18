@@ -179,5 +179,28 @@ func TestEndsWith(t *testing.T) {
 			}
 		})
 	}
+}
+
+func TestTrim(t *testing.T){
+	tests := []struct {
+		name     string
+		text     string
+		expected string
+	}{
+		{"Space both side", "   Hello   ", "Hello"},
+		{"Space at the start", "   cow", "cow"},
+		{"Space at the end", "test   ", "test"},
+		{"More space at the end", "test     ", "test"},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			s := tow.New(tt.text)
+			result := s.Trim().String()
+			if result != tt.expected {
+				t.Errorf("Trim() = %s; want %s", result, tt.expected)
+			}
+		})
+	}
 
 }

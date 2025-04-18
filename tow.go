@@ -1,5 +1,7 @@
 package tow
 
+import "unicode"
+
 type Str struct {
 	value string
 }
@@ -108,4 +110,29 @@ func (s *Str) IndexOf(str string) int {
 	}
 
 	return -1
+}
+
+// This method take a string and removes whitespace from both ends of the string
+func (s *Str) Trim() *Str {
+	startIdx := 0
+	endIdx := len(s.value) - 1
+
+	// start spaces
+	for startIdx <= endIdx {
+		if !unicode.IsSpace(rune(s.value[startIdx])) {
+			break
+		}
+		startIdx++
+	}
+
+	// end spaces
+	for startIdx <= endIdx {
+		if !unicode.IsSpace(rune(s.value[endIdx])) {
+			break
+		}
+		endIdx--
+	}
+
+	s.value = s.value[startIdx:endIdx+1]
+	return s
 }
