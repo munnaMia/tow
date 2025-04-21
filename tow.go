@@ -20,6 +20,11 @@ func (s *Str) String() string {
 	return s.value
 }
 
+// Return length of the string
+func (s *Str) Length() int {
+	return len(s.value)
+}
+
 // return a string from a sequence of Unicode values (character codes).
 func (s *Str) FromCharCode(charCode ...int) *Str {
 	s.value = ""

@@ -174,6 +174,27 @@ func TestEndsWith(t *testing.T) {
 		})
 	}
 }
+func TestLength(t *testing.T) {
+	tests := []struct {
+		name     string
+		text     string
+		expected int
+	}{
+		{"Small text", "Test", 4},
+		{"Midium text", "This is a cow", 13},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			s := tow.New(tt.text)
+			result := s.Length()
+			if result != tt.expected {
+				t.Errorf("Length() = %d; want %d", result, tt.expected)
+			}
+		})
+	}
+
+}
 func TestTrim(t *testing.T) {
 	tests := []struct {
 		name     string
