@@ -1,6 +1,8 @@
 package tow
 
-import "unicode"
+import (
+	"unicode"
+)
 
 type Str struct {
 	value string
@@ -166,5 +168,17 @@ func (s *Str) TrimStart() *Str {
 	}
 
 	s.value = s.value[startIdx : endIdx+1]
+	return s
+}
+
+// This method  returns string converted to uppercase.
+func (s *Str) ToUpperCase() *Str {
+	runes := []rune(s.value)
+	for idx, word := range runes {
+		if word >= 'a' && word <= 'z' {
+			runes[idx] = word - 32
+		}
+	}
+	s.value = string(runes)
 	return s
 }

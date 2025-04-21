@@ -28,7 +28,6 @@ func TestFromCharCode(t *testing.T) {
 		})
 	}
 }
-
 func TestCharAt(t *testing.T) {
 	testString := "Let's have a home" // String to test on it
 	tests := []struct {
@@ -59,7 +58,6 @@ func TestCharAt(t *testing.T) {
 	}
 
 }
-
 func TestCharCodeAt(t *testing.T) {
 	testString := "Let's have a ☃★♲" // String to test on it
 	tests := []struct {
@@ -85,7 +83,6 @@ func TestCharCodeAt(t *testing.T) {
 		})
 	}
 }
-
 func TestConcat(t *testing.T) {
 	testString := "hello" // String to test on it
 	tests := []struct {
@@ -109,7 +106,6 @@ func TestConcat(t *testing.T) {
 		})
 	}
 }
-
 func TestIncludes(t *testing.T) {
 	testString := "The quick brown fox jumps over the lazy dog." // String to test on it
 	tests := []struct {
@@ -133,7 +129,6 @@ func TestIncludes(t *testing.T) {
 	}
 
 }
-
 func TestIndexOf(t *testing.T) {
 	testString := "The quick brown fox jumps over the lazy dog." // String to test on it
 	tests := []struct {
@@ -157,7 +152,6 @@ func TestIndexOf(t *testing.T) {
 	}
 
 }
-
 func TestEndsWith(t *testing.T) {
 	testString := "The fox is fast." // String to test on it
 	tests := []struct {
@@ -180,8 +174,7 @@ func TestEndsWith(t *testing.T) {
 		})
 	}
 }
-
-func TestTrim(t *testing.T){
+func TestTrim(t *testing.T) {
 	tests := []struct {
 		name     string
 		text     string
@@ -203,9 +196,7 @@ func TestTrim(t *testing.T){
 		})
 	}
 }
-
-
-func TestTrimStart(t *testing.T){
+func TestTrimStart(t *testing.T) {
 	tests := []struct {
 		name     string
 		text     string
@@ -228,8 +219,7 @@ func TestTrimStart(t *testing.T){
 	}
 
 }
-
-func TestTrimEnd(t *testing.T){
+func TestTrimEnd(t *testing.T) {
 	tests := []struct {
 		name     string
 		text     string
@@ -251,4 +241,26 @@ func TestTrimEnd(t *testing.T){
 		})
 	}
 
+}
+
+func TestToUpperCase(t *testing.T){
+	tests := []struct {
+		name     string
+		text     string
+		expected string
+	}{
+		{"Simple string", "this is a simple string", "THIS IS A SIMPLE STRING"},
+		{"Mixed string", "#this is Mixsed string", "#THIS IS MIXSED STRING"},
+		{"Uppercase string", "THIS IS A UPPERCASE STRING", "THIS IS A UPPERCASE STRING"},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			s := tow.New(tt.text)
+			result := s.ToUpperCase().String()
+			if result != tt.expected {
+				t.Errorf("ToUpperCase() = %s; want %s", result, tt.expected)
+			}
+		})
+	}
 }
