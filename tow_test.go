@@ -264,7 +264,7 @@ func TestTrimEnd(t *testing.T) {
 
 }
 
-func TestToUpperCase(t *testing.T){
+func TestToUpperCase(t *testing.T) {
 	tests := []struct {
 		name     string
 		text     string
@@ -286,7 +286,7 @@ func TestToUpperCase(t *testing.T){
 	}
 }
 
-func TestToLowerCase(t *testing.T){
+func TestToLowerCase(t *testing.T) {
 	tests := []struct {
 		name     string
 		text     string
@@ -303,6 +303,30 @@ func TestToLowerCase(t *testing.T){
 			result := s.ToLowerCase().String()
 			if result != tt.expected {
 				t.Errorf("ToUpperCase() = %s; want %s", result, tt.expected)
+			}
+		})
+	}
+}
+
+func TestPadStart(t *testing.T) {
+	tests := []struct {
+		name     string
+		text     string
+		pLen     int
+		pCh      rune
+		expected string
+	}{
+		{"No pad added", "text text", 4, '*', "text text"},
+		{"Adding Simple padding", "232", 8, '*', "*****232"},
+		{"With end space padding", "232 ", 8, '*', "****232 "},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			s := tow.New(tt.text)
+			result := s.PadStart(tt.pLen, tt.pCh).String()
+			if result != tt.expected {
+				t.Errorf("PadStart() = %s; want %s", result, tt.expected)
 			}
 		})
 	}

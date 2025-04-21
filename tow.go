@@ -188,6 +188,7 @@ func (s *Str) ToUpperCase() *Str {
 	return s
 }
 
+// This method  returns string converted to lowercase.
 func (s *Str) ToLowerCase() *Str {
 	runes := []rune(s.value)
 	for idx, word := range runes {
@@ -196,5 +197,25 @@ func (s *Str) ToLowerCase() *Str {
 		}
 	}
 	s.value = string(runes)
+	return s
+}
+
+func (s *Str) PadStart(padLength int, padChar rune) *Str {
+	// If padding is not needed, return the original string
+	if padLength < len(s.value) {
+		return s // no pad will be added
+	}
+
+	padCount := padLength - len([]rune(s.value)) // get the length for pad charater length
+
+	result := make([]rune, padCount)
+
+	// Create a slice with the padding characters
+	for i := 0; i < padCount; i++ {
+		result[i] = padChar
+	}
+
+	result = append(result, []rune(s.value)...) // Combine padding and original string
+	s.value = string(result)
 	return s
 }
