@@ -355,3 +355,29 @@ func TestEnd(t *testing.T) {
 		})
 	}
 }
+
+func TestStartsWith(t *testing.T) {
+	tests := []struct {
+		name     string
+		text     string
+		input    string
+		expected bool
+	}{
+		{"Basic match", "hello world", "hello", true},
+		{"Not at the beginning", "hello world", "world", false},
+		{"Empty string and prefix", "", "", true},
+		{"Empty string, non-empty prefix", "", "hello", false},
+		{"Non-empty string, empty prefix", "hello world", "", true},
+		{"Prefix longer than string", "hello", "hello world", false},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			s := tow.New(tt.text)
+			result := s.StartsWith(tt.input)
+			if result != tt.expected {
+				t.Errorf("StartsWith(%s) = %v; want %v", tt.input, result, tt.expected)
+			}
+		})
+	}
+}

@@ -200,6 +200,7 @@ func (s *Str) ToLowerCase() *Str {
 	return s
 }
 
+// Add padding start of the string
 func (s *Str) PadStart(padLength int, padChar rune) *Str {
 	// If padding is not needed, return the original string
 	if padLength < len(s.value) {
@@ -220,6 +221,7 @@ func (s *Str) PadStart(padLength int, padChar rune) *Str {
 	return s
 }
 
+// Add padding end of the string
 func (s *Str) PadEnd(padLength int, padChar rune) *Str {
 	// If padding is not needed, return the original string
 	if padLength < len(s.value) {
@@ -238,4 +240,8 @@ func (s *Str) PadEnd(padLength int, padChar rune) *Str {
 	s.value = string(append([]rune(s.value), padding...)) // Combine input string with padding and convert them to a string
 
 	return s
+}
+
+func (s *Str) StartsWith(text string) bool {
+	return len(text) <= len(s.value) && s.value[:len(text)] == text
 }
