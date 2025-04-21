@@ -187,3 +187,14 @@ func (s *Str) ToUpperCase() *Str {
 	s.value = string(runes)
 	return s
 }
+
+func (s *Str) ToLowerCase() *Str {
+	runes := []rune(s.value)
+	for idx, word := range runes {
+		if word >= 'A' && word <= 'Z' {
+			runes[idx] = word + 32
+		}
+	}
+	s.value = string(runes)
+	return s
+}

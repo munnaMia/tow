@@ -285,3 +285,25 @@ func TestToUpperCase(t *testing.T){
 		})
 	}
 }
+
+func TestToLowerCase(t *testing.T){
+	tests := []struct {
+		name     string
+		text     string
+		expected string
+	}{
+		{"Simple lowercase string", "this is a simple string", "this is a simple string"},
+		{"Mixed string", "#tHis is Mixsed stRing", "#this is mixsed string"},
+		{"Uppercase string", "THIS IS A UPPERCASE STRING", "this is a uppercase string"},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			s := tow.New(tt.text)
+			result := s.ToLowerCase().String()
+			if result != tt.expected {
+				t.Errorf("ToUpperCase() = %s; want %s", result, tt.expected)
+			}
+		})
+	}
+}
