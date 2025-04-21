@@ -331,3 +331,27 @@ func TestPadStart(t *testing.T) {
 		})
 	}
 }
+
+func TestEnd(t *testing.T) {
+	tests := []struct {
+		name     string
+		text     string
+		pLen     int
+		pCh      rune
+		expected string
+	}{
+		{"No pad added", "text text", 4, '.', "text text"},
+		{"Adding Simple padding", "232", 8, '.', "232....."},
+		{"With start space padding", " 232", 8, '.', " 232...."},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			s := tow.New(tt.text)
+			result := s.PadEnd(tt.pLen, tt.pCh).String()
+			if result != tt.expected {
+				t.Errorf("PadStart() = %s; want %s", result, tt.expected)
+			}
+		})
+	}
+}

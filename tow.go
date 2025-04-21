@@ -219,3 +219,23 @@ func (s *Str) PadStart(padLength int, padChar rune) *Str {
 	s.value = string(result)
 	return s
 }
+
+func (s *Str) PadEnd(padLength int, padChar rune) *Str {
+	// If padding is not needed, return the original string
+	if padLength < len(s.value) {
+		return s // no pad will be added
+	}
+
+	padCount := padLength - len([]rune(s.value)) // get the length for pad charater length
+
+	padding := make([]rune, padCount)
+
+	// Create a slice with the padding characters
+	for i := 0; i < padCount; i++ {
+		padding[i] = padChar
+	}
+
+	s.value = string(append([]rune(s.value), padding...)) // Combine input string with padding and convert them to a string
+
+	return s
+}
