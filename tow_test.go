@@ -21,7 +21,7 @@ func TestFromCharCode(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			s := tow.New("")
-			result := s.FromCharCode(tt.input...).String()
+			result := s.FromCharCode(tt.input...).ToString()
 			if result != tt.expected {
 				t.Errorf("FromCharCode(%v) = %q; want %q", tt.input, result, tt.expected)
 			}
@@ -48,7 +48,7 @@ func TestCharAt(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			s := tow.New(testString)
 
-			result := s.CharAt(tt.idx).String()
+			result := s.CharAt(tt.idx).ToString()
 
 			if result != tt.expected {
 				t.Errorf("CharAt(%v) = %q; want %q", tt.idx, result, tt.expected)
@@ -98,7 +98,7 @@ func TestConcat(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			s := tow.New(testString)
-			result := s.Concat(tt.texts...).String()
+			result := s.Concat(tt.texts...).ToString()
 			if result != tt.expected {
 				t.Errorf("Concat(%v) = %q; want %q", tt.texts, result, tt.expected)
 			}
@@ -210,7 +210,7 @@ func TestTrim(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			s := tow.New(tt.text)
-			result := s.Trim().String()
+			result := s.Trim().ToString()
 			if result != tt.expected {
 				t.Errorf("Trim() = %s; want %s", result, tt.expected)
 			}
@@ -232,7 +232,7 @@ func TestTrimStart(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			s := tow.New(tt.text)
-			result := s.TrimStart().String()
+			result := s.TrimStart().ToString()
 			if result != tt.expected {
 				t.Errorf("TrimStart() = %s; want %s", result, tt.expected)
 			}
@@ -255,7 +255,7 @@ func TestTrimEnd(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			s := tow.New(tt.text)
-			result := s.TrimEnd().String()
+			result := s.TrimEnd().ToString()
 			if result != tt.expected {
 				t.Errorf("TrimEnd() = %s; want %s", result, tt.expected)
 			}
@@ -278,7 +278,7 @@ func TestToUpperCase(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			s := tow.New(tt.text)
-			result := s.ToUpperCase().String()
+			result := s.ToUpperCase().ToString()
 			if result != tt.expected {
 				t.Errorf("ToUpperCase() = %s; want %s", result, tt.expected)
 			}
@@ -300,7 +300,7 @@ func TestToLowerCase(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			s := tow.New(tt.text)
-			result := s.ToLowerCase().String()
+			result := s.ToLowerCase().ToString()
 			if result != tt.expected {
 				t.Errorf("ToUpperCase() = %s; want %s", result, tt.expected)
 			}
@@ -324,7 +324,7 @@ func TestPadStart(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			s := tow.New(tt.text)
-			result := s.PadStart(tt.pLen, tt.pCh).String()
+			result := s.PadStart(tt.pLen, tt.pCh).ToString()
 			if result != tt.expected {
 				t.Errorf("PadStart() = %s; want %s", result, tt.expected)
 			}
@@ -348,7 +348,7 @@ func TestEnd(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			s := tow.New(tt.text)
-			result := s.PadEnd(tt.pLen, tt.pCh).String()
+			result := s.PadEnd(tt.pLen, tt.pCh).ToString()
 			if result != tt.expected {
 				t.Errorf("PadStart() = %s; want %s", result, tt.expected)
 			}
@@ -377,6 +377,30 @@ func TestStartsWith(t *testing.T) {
 			result := s.StartsWith(tt.input)
 			if result != tt.expected {
 				t.Errorf("StartsWith(%s) = %v; want %v", tt.input, result, tt.expected)
+			}
+		})
+	}
+}
+
+func TestRepeat(t *testing.T) {
+	tests := []struct {
+		name     string
+		input    string
+		count    int
+		expected string
+	}{
+		{"Basic text", "hello", 3, "hellohellohello"},
+		{"With space at the end", "hello ", 3, "hello hello hello "},
+		{"Empty string", "", 3, ""},
+		{"Only space", " ", 3, "   "},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			s := tow.New(tt.input)
+			result := s.Repeat(tt.count).ToString()
+			if result != tt.expected {
+				t.Errorf("Repeat(%v) = %s; want %s", tt.count, result, tt.expected)
 			}
 		})
 	}

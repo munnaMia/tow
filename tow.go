@@ -16,7 +16,7 @@ func New(s string) *Str {
 }
 
 // Converted raw string
-func (s *Str) String() string {
+func (s *Str) ToString() string {
 	return s.value
 }
 
@@ -242,6 +242,15 @@ func (s *Str) PadEnd(padLength int, padChar rune) *Str {
 	return s
 }
 
+// Check the string is start with the given string and retrun boolean.
 func (s *Str) StartsWith(text string) bool {
 	return len(text) <= len(s.value) && s.value[:len(text)] == text
+}
+
+func (s *Str) Repeat(count int) *Str {
+	word := s.value
+	for i := 1; i < count; i++ {
+		s.value += word
+	}
+	return s
 }
