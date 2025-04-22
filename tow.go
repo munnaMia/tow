@@ -254,3 +254,17 @@ func (s *Str) Repeat(count int) *Str {
 	}
 	return s
 }
+
+// replace the string with the given one and return a string.
+// will not modify the orignal string.
+func (s *Str) Replace(search, replace string) string {
+	if len(search) > len(s.value) || search == "" {
+		return s.value
+	}
+	for i := 0; i <= len(s.value)-len(search); i++ {
+		if s.value[i:i+len(search)] == search {
+			return s.value[:i] + replace + s.value[i+len(search):]
+		}
+	}
+	return s.value
+}
