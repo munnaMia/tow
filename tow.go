@@ -323,6 +323,27 @@ func (s *Str) Slice(start, end int) string {
 		return ""
 	}
 
-	
 	return string(runes[start:end])
+}
+
+// Return a string array. 
+func (s *Str) Split(separator string) []string {
+	if separator == "" {
+		return []string{s.value} //for empty separator return array with whole string value
+	}
+	var result []string
+	text := s.value
+	separatorLen := len([]rune(separator))
+	start := 0
+	for i := 0; i <= len(text)-separatorLen; {
+		if text[i:i+separatorLen] == separator {
+			result = append(result, text[start:i])
+			i += separatorLen
+			start = i
+		} else {
+			i++
+		}
+	}
+	result = append(result, text[start:])
+	return result
 }

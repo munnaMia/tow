@@ -516,3 +516,31 @@ func TestSlice(t *testing.T) {
 		})
 	}
 }
+
+func TestSplit(t *testing.T) {
+	tests := []struct {
+		name      string
+		input     string
+		separator string
+		expected  []string
+	}{
+		{"Single char split", "a,b,c", ",", []string{"a", "b", "c"}},
+		{"Multi-char split", "go--is--awesome", "--", []string{"go", "is", "awesome"}},
+		{"No separator found", "hello", "::", []string{"hello"}},
+		{"Empty separator", "abc", "", []string{"abc"}},
+		{"Separator at start", "--start", "--", []string{"", "start"}},
+		{"Separator at end", "end--", "--", []string{"end", ""}},
+		{"Multiple separators", "a::b::c::", "::", []string{"a", "b", "c", ""}},
+		{"Only separator", "****", "**", []string{"", "", ""}},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			s := tow.New(tt.input)
+			result := s.Split(tt.separator)
+			if !reflect.DeepEqual(result, tt.expected) {
+				t.Errorf("Split(%q, %q) = %v; want %v", tt.input, tt.separator, result, tt.expected)
+			}
+		})
+	}
+}
