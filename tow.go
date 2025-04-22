@@ -291,9 +291,38 @@ func (s *Str) ReplaceAll(search, replace string) string {
 	return result
 }
 
+// Match returns the first match of the pattern.
+// If the pattern includes groups, returns only the matched string.
 func (s *Str) Match(pattern string) []string {
 	re := regexp.MustCompile(pattern)
 	return re.FindAllString(s.value, -1)
 }
 
+// Return a slice of a string.
+func (s *Str) Slice(start, end int) string {
+	runes := []rune(s.value)
+	length := len(runes)
+	// handling negative numbers
+	if start < 0 {
+		start += length
+	}
+	if end < 0 {
+		end += length
+	}
+	// Clamp to valid bounds
+	if start < 0 {
+		start = 0
+	}
+	if end < 0 {
+		end = 0
+	}
+	if end > length {
+		end = length
+	}
+	if start > end {
+		return ""
+	}
 
+	
+	return string(runes[start:end])
+}

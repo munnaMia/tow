@@ -486,3 +486,33 @@ func TestMatch(t *testing.T) {
 		})
 	}
 }
+
+func TestSlice(t *testing.T) {
+	tests := []struct {
+		name     string
+		input    string
+		start    int
+		end      int
+		expected string
+	}{
+		{"Basic slice", "abcdef", 1, 4, "bcd"},
+		{"Slice with negative start", "abcdef", -4, -1, "cde"},
+		{"Slice with negative end", "abcdef", 2, -1, "cde"},
+		{"Slice with negative start and end", "abcdef", -5, -2, "bcd"},
+		{"Empty slice", "abcdef", 4, 4, ""},
+		{"Start greater than end", "abcdef", 4, 2, ""},
+		{"Full string", "abcdef", 0, -1, "abcde"},
+		{"Slice from the end", "abcdef", -3, -1, "de"},
+		{"Out of bounds", "abcdef", 10, 15, ""},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			s := tow.New(tt.input)
+			result := s.Slice(tt.start, tt.end)
+			if result != tt.expected {
+				t.Errorf("Slice(%d, %d) = %q; want %q", tt.start, tt.end, result, tt.expected)
+			}
+		})
+	}
+}
