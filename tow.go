@@ -1,6 +1,7 @@
 package tow
 
 import (
+	"regexp"
 	"unicode"
 )
 
@@ -269,7 +270,6 @@ func (s *Str) Replace(search, replace string) string {
 	return s.value
 }
 
-
 // replace all the string with the given one and return a string.
 // will not modify the orignal string.
 func (s *Str) ReplaceAll(search, replace string) string {
@@ -277,12 +277,12 @@ func (s *Str) ReplaceAll(search, replace string) string {
 		return s.value
 	}
 	result := ""
-	i:=0
-	for  i <= len(s.value)-len(search) {
+	i := 0
+	for i <= len(s.value)-len(search) {
 		if s.value[i:i+len(search)] == search {
 			result += replace
 			i += len(search)
-		}else{
+		} else {
 			result += string(s.value[i])
 			i++
 		}
@@ -290,3 +290,10 @@ func (s *Str) ReplaceAll(search, replace string) string {
 	result += s.value[i:]
 	return result
 }
+
+func (s *Str) Match(pattern string) []string {
+	re := regexp.MustCompile(pattern)
+	return re.FindAllString(s.value, -1)
+}
+
+

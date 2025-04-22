@@ -1,6 +1,7 @@
 package tow_test
 
 import (
+	"reflect"
 	"testing"
 
 	"github.com/munnaMia/tow"
@@ -457,6 +458,30 @@ func TestReplaceAll(t *testing.T) {
 			result := s.ReplaceAll(tt.search, tt.replace)
 			if result != tt.expected {
 				t.Errorf("ReplaceAll(%q, %q) = %q; want %q", tt.search, tt.replace, result, tt.expected)
+			}
+		})
+	}
+}
+
+func TestMatch(t *testing.T) {
+	tests := []struct {
+		name     string
+		input    string
+		pattern  string
+		expected []string
+	}{
+		{"Match digits", "abc123def456", `\d+`, []string{"123", "456"}},
+		{"Match words", "one two three", `\w+`, []string{"one", "two", "three"}},
+		{"Single match", "hello123", `[a-z]+`, []string{"hello"}},
+		{"Whitespace", "a b  c", `\s+`, []string{" ", "  "}},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			s := tow.New(tt.input)
+			result := s.Match(tt.pattern)
+			if !reflect.DeepEqual(result, tt.expected) {
+				t.Errorf("Match(%q) = %v; want %v", tt.pattern, result, tt.expected)
 			}
 		})
 	}
