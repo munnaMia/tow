@@ -433,3 +433,31 @@ func TestReplace(t *testing.T) {
 		})
 	}
 }
+
+func TestReplaceAll(t *testing.T) {
+	tests := []struct {
+		name     string
+		input    string
+		search   string
+		replace  string
+		expected string
+	}{
+		{"Replace all matches", "abcabcabc", "abc", "x", "xxx"},
+		{"No match", "hello world", "earth", "Go", "hello world"},
+		{"Empty search", "hello", "", "X", "hello"},
+		{"Replace with empty string", "test test test", "test", "", "  "},
+		{"Replace repeated chars", "aaaa", "a", "b", "bbbb"},
+		{"Search at edges", "abcabc", "abc", "-", "--"},
+		{"Input is empty", "", "abc", "x", ""},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			s := tow.New(tt.input)
+			result := s.ReplaceAll(tt.search, tt.replace)
+			if result != tt.expected {
+				t.Errorf("ReplaceAll(%q, %q) = %q; want %q", tt.search, tt.replace, result, tt.expected)
+			}
+		})
+	}
+}

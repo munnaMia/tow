@@ -268,3 +268,25 @@ func (s *Str) Replace(search, replace string) string {
 	}
 	return s.value
 }
+
+
+// replace all the string with the given one and return a string.
+// will not modify the orignal string.
+func (s *Str) ReplaceAll(search, replace string) string {
+	if len(search) > len(s.value) || search == "" {
+		return s.value
+	}
+	result := ""
+	i:=0
+	for  i <= len(s.value)-len(search) {
+		if s.value[i:i+len(search)] == search {
+			result += replace
+			i += len(search)
+		}else{
+			result += string(s.value[i])
+			i++
+		}
+	}
+	result += s.value[i:]
+	return result
+}
