@@ -258,23 +258,25 @@ func (s *Str) Repeat(count int) *Str {
 
 // replace the string with the given one and return a string.
 // will not modify the orignal string.
-func (s *Str) Replace(search, replace string) string {
+func (s *Str) Replace(search, replace string) *Str {
 	if len(search) > len(s.value) || search == "" {
-		return s.value
+		return s
 	}
+
 	for i := 0; i <= len(s.value)-len(search); i++ {
 		if s.value[i:i+len(search)] == search {
-			return s.value[:i] + replace + s.value[i+len(search):]
+			s.value = s.value[:i] + replace + s.value[i+len(search):]
+			return s
 		}
 	}
-	return s.value
+	return s
 }
 
 // replace all the string with the given one and return a string.
 // will not modify the orignal string.
-func (s *Str) ReplaceAll(search, replace string) string {
+func (s *Str) ReplaceAll(search, replace string) *Str {
 	if len(search) > len(s.value) || search == "" {
-		return s.value
+		return s
 	}
 	result := ""
 	i := 0
@@ -288,7 +290,8 @@ func (s *Str) ReplaceAll(search, replace string) string {
 		}
 	}
 	result += s.value[i:]
-	return result
+	s.value = result
+	return s
 }
 
 // Match returns the first match of the pattern.
@@ -326,7 +329,7 @@ func (s *Str) Slice(start, end int) string {
 	return string(runes[start:end])
 }
 
-// Return a string array. 
+// Return a string array.
 func (s *Str) Split(separator string) []string {
 	if separator == "" {
 		return []string{s.value} //for empty separator return array with whole string value

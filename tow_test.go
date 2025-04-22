@@ -427,7 +427,7 @@ func TestReplace(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			s := tow.New(tt.input)
-			result := s.Replace(tt.search, tt.replace)
+			result := s.Replace(tt.search, tt.replace).ToString()
 			if result != tt.expected {
 				t.Errorf("Replace( %q, %q) = %q; want %q", tt.search, tt.replace, result, tt.expected)
 			}
@@ -455,7 +455,7 @@ func TestReplaceAll(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			s := tow.New(tt.input)
-			result := s.ReplaceAll(tt.search, tt.replace)
+			result := s.ReplaceAll(tt.search, tt.replace).ToString()
 			if result != tt.expected {
 				t.Errorf("ReplaceAll(%q, %q) = %q; want %q", tt.search, tt.replace, result, tt.expected)
 			}
